@@ -29,15 +29,10 @@ mono_crash.*
 *.suo
 *.user
 
-# Build results
-[Dd]ebug/
-[Rr]elease/
-x64/
-x86/
-build/
-bld/
-[Bb]in/
-[Oo]bj/
+# Build results of an ATL project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -46,11 +41,6 @@ bld/
 # NUnit
 *.VisualState.xml
 TestResult.xml
-
-# Build results of an ATL project
-[Dd]ebugPS/
-[Rr]eleasePS/
-dlldata.c
 
 # NuGet Packages
 *.nupkg
@@ -82,3 +72,9 @@ Audio/
 
 # IDE
 .vscode/
+
+# Exclude SwiftlyS2 agents and skills from repo
+.github/skills/
+.github/prompts/
+*.agent.md
+*.prompt.md
