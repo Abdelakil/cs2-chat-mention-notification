@@ -1,7 +1,7 @@
 <div align="center">
   <h2><strong>Ostora Player Mention</strong></h2>
   <h3>A powerful plugin for SwiftlyS2 that enables player mentions with sound notifications.</h3>
-  <p>Created by <a href="https://ostora.xyz">Zenjibad</a></p>
+  <p><a href="https://ostora.xyz">Zenjibad</a></p>
 </div>
 
 ## 🎯 Features
