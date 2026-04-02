@@ -16,7 +16,7 @@ using Tomlyn.Extensions.Configuration;
 
 namespace OstoraPlayerMention;
 
-[PluginMetadata(Id = "OstoraPlayerMention", Version = "1.0.0", Name = "Ostora Player Mention", Author = "Zenjibad", Description = "Player mention system with sound notifications. Inspired by SwiftlyS2-SankySounds by T3Marius.", Website = "https://ostora.xyz")]
+[PluginMetadata(Id = "OstoraPlayerMention", Version = "1.0.1", Name = "Ostora Player Mention", Author = "Zenjibad", Description = "Player mention system with sound notifications. Inspired by SwiftlyS2-SankySounds by T3Marius.", Website = "https://ostora.xyz")]
 public partial class OstoraPlayerMention : BasePlugin
 {
     private ServiceProvider? _provider;
@@ -83,6 +83,12 @@ public partial class OstoraPlayerMention : BasePlugin
                 Core.Translation.GetPlayerLocalizer(player)["prefix"] +
                 Core.Translation.GetPlayerLocalizer(player)["mention_cooldown", Math.Ceiling(remaining).ToString()]
             );
+            return HookResult.Continue;
+        }
+
+        // Skip admin commands - don't process mentions in commands starting with !
+        if (text.StartsWith("!") || text.StartsWith("/"))
+        {
             return HookResult.Continue;
         }
 
