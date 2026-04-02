@@ -74,13 +74,7 @@ public partial class OstoraPlayerMention : BasePlugin
     public HookResult OnClientChat(int playerId, string text, bool teamOnly)
     {
         IPlayer player = Core.PlayerManager.GetPlayer(playerId);
-        
-        if (!HasUsePermission(player))
-        {
-            return HookResult.Continue;
-        }
-
-        // Check cooldown
+        if (!HasUsePermission(player)) return HookResult.Continue;
         if (IsPlayerOnCooldown(player))
         {
             double remaining = (_playerCooldown - (DateTime.UtcNow - _lastMentionTime[player.SteamID])).TotalSeconds;
@@ -92,18 +86,28 @@ public partial class OstoraPlayerMention : BasePlugin
             return HookResult.Continue;
         }
 
-        // Process mentions and modify chat message
-        string processedText = ProcessMentions(text, player);
-        
-        if (processedText != text)
+        // Check if the message contains mentions
+        if (text.Contains("@"))
         {
-            // Send the modified message to all players
-            foreach (var targetPlayer in Core.PlayerManager.GetAllPlayers())
-            {
-                targetPlayer.SendMessage(MessageType.Chat, processedText);
-            }
+            string processedText = ProcessMentions(text, player);
             
-            return HookResult.Stop; // Prevent original message from showing
+            if (processedText != text)
+            {
+                // Let the original message go through but with modified text
+                // We need to use a different approach - let's try to find the actual chat format
+                // For now, let's use the team color format that CS2 uses
+                string teamColor = player.Controller.TeamNum == 3 ? "[blue]" : "[orange]"; // CT = blue, T = orange
+                string chatPrefix = teamOnly ? "[TEAM] " : "[ALL] ";
+                string formattedMessage = $"{chatPrefix}{teamColor}{player.Controller.PlayerName}[default]: {processedText}";
+                
+                // Send the properly formatted message to all players
+                foreach (var targetPlayer in Core.PlayerManager.GetAllPlayers())
+                {
+                    targetPlayer.SendMessage(MessageType.Chat, formattedMessage);
+                }
+                
+                return HookResult.Stop; // Prevent original message from showing
+            }
         }
 
         return HookResult.Continue;
@@ -126,6 +130,13 @@ public partial class OstoraPlayerMention : BasePlugin
                 
                 // Play sound for mentioned player
                 PlayMentionSound(mentionedPlayer);
+                
+                // Send notification to mentioned player only
+                mentionedPlayer.SendMessage(
+                    MessageType.Chat,
+                    Core.Translation.GetPlayerLocalizer(mentionedPlayer)["prefix"] +
+                    Core.Translation.GetPlayerLocalizer(mentionedPlayer)["mention_received", sender.Controller.PlayerName]
+                );
                 
                 // Replace @playername with actual player name in green
                 processedText = processedText.Replace(match.Value, $"[green]{mentionedPlayer.Controller.PlayerName}[default]");
