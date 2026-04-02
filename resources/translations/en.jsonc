@@ -1,0 +1,9 @@
+{
+  "prefix": "[red][OSTORA][default] ",
+  "mention_toggle": "Player mentions have been {0}",
+  "mention_cooldown": "Please wait [red]{0}[default] seconds before mentioning again!",
+  "mention_no_permission": "You don't have permission to use player mentions!",
+  "mention_received": "You were mentioned by [green]{0}[default]!",
+  "mention_sound_disabled": "Mention sounds are disabled",
+  "mention_admin_only": "Only admins can see mention notifications"
+}

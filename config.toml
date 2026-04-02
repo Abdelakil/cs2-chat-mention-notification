@@ -1,0 +1,8 @@
+[OstoraPlayerMention]
+ToggleCommands = ["mention", "om", "ostoramention"]
+PlayerCooldown = 5
+UsePermissions = ["ostora.mention.use"]
+# Everyone can receive mentions - no permission required
+MentionSound = "mention.mp3"
+SoundVolume = 0.6
+CaseSensitiveMentions = false
