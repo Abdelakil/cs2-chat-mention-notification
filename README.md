@@ -13,6 +13,10 @@
 - **Private Notifications**: Only mentioned players receive notifications (messages hidden from chat)
 - **Multi-language Support**: Easy-to-extend translation structure
 
+## 🎬 Showcase
+
+[![Watch the demo](https://img.youtube.com/vi/8tF7sehkCEg/0.jpg)](https://youtu.be/8tF7sehkCEg)
+
 ## 📋 Requirements
 
 - **[SwiftlyS2](https://github.com/swiftly-solution/swiftlys2)**
