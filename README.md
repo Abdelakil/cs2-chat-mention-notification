@@ -7,10 +7,11 @@
 ## 🎯 Features
 
 - **Player Mention Detection**: Detect "@playername" in chat messages
+- **In-Chat Highlighting**: Replaces "@playername" with the actual player name in green directly in chat
 - **Sound Notifications**: Play custom sounds when players are mentioned
 - **Permission System**: Simple control for who can use mentions
 - **Cooldown Management**: Prevent spam with configurable cooldowns
-- **Private Notifications**: Only mentioned players receive notifications (messages hidden from chat)
+- **Clean Chat Integration**: No separate notification lines - mentions appear directly in chat
 - **Multi-language Support**: Easy-to-extend translation structure
 
 ## 🎬 Showcase
@@ -61,7 +62,11 @@ Default sound: `mention.mp3`
 ### Mention Players
 Type `@playername` in chat to mention a player:
 ```
-@PlayerName Hey there!
+[ALL] Ali‎: hi @ali
+```
+**Result:**
+```
+[ALL] Ali‎: hi Ali (with "Ali" highlighted in green)
 ```
 
 ### Toggle Notifications
@@ -79,7 +84,7 @@ Supported languages:
 ## 🔧 Advanced Features
 
 - **Case Sensitivity**: Configure whether mentions are case-sensitive
-- **Private Mentions**: Mention messages are hidden from public chat
+- **In-Chat Mentions**: Mentions appear directly in chat with green highlighting
 - **Sound Volume**: Adjustable notification volume
 - **Cooldown System**: Prevent spam with per-player cooldowns
 

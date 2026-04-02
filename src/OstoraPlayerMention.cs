@@ -92,17 +92,28 @@ public partial class OstoraPlayerMention : BasePlugin
             return HookResult.Continue;
         }
 
-        // Process mentions
-        ProcessMentions(text, player);
+        // Process mentions and modify chat message
+        string processedText = ProcessMentions(text, player);
         
-        // Always hide mention messages from chat
+        if (processedText != text)
+        {
+            // Send the modified message to all players
+            foreach (var targetPlayer in Core.PlayerManager.GetAllPlayers())
+            {
+                targetPlayer.SendMessage(MessageType.Chat, processedText);
+            }
+            
+            return HookResult.Stop; // Prevent original message from showing
+        }
+
         return HookResult.Continue;
     }
 
-    private void ProcessMentions(string text, IPlayer sender)
+    private string ProcessMentions(string text, IPlayer sender)
     {
-        string pattern = @"@(\w+)";
+        string pattern = "@(\\w+)";
         var matches = Regex.Matches(text, pattern);
+        string processedText = text;
 
         foreach (Match match in matches)
         {
@@ -116,14 +127,12 @@ public partial class OstoraPlayerMention : BasePlugin
                 // Play sound for mentioned player
                 PlayMentionSound(mentionedPlayer);
                 
-                // Send notification to mentioned player
-                mentionedPlayer.SendMessage(
-                    MessageType.Chat,
-                    Core.Translation.GetPlayerLocalizer(mentionedPlayer)["prefix"] +
-                    Core.Translation.GetPlayerLocalizer(mentionedPlayer)["mention_received", sender.Controller.PlayerName]
-                );
+                // Replace @playername with actual player name in green
+                processedText = processedText.Replace(match.Value, $"[green]{mentionedPlayer.Controller.PlayerName}[default]");
             }
         }
+
+        return processedText;
     }
 
     private IPlayer? FindPlayerByName(string name)
