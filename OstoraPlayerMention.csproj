@@ -6,10 +6,13 @@
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <AssemblyName>OstoraPlayerMention</AssemblyName>
     <OutputPath>$(MSBuildThisFileDirectory)build/</OutputPath>
     <PublishDir>$(OutputPath)publish/OstoraPlayerMention</PublishDir>
+    <SelfContained>false</SelfContained>
+    <PublishSingleFile>false</PublishSingleFile>
+    <PublishTrimmed>false</PublishTrimmed>
   </PropertyGroup>
 
 <ItemGroup>
@@ -18,10 +21,10 @@
   <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0" ExcludeAssets="runtime" PrivateAssets="all" />
   <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.0" ExcludeAssets="runtime" PrivateAssets="all" />
   <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.0" ExcludeAssets="runtime" PrivateAssets="all" />
-  <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.0" />
-  <PackageReference Include="SwiftlyS2.CS2" Version="0.2.39-beta.94" />
+  <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.0" ExcludeAssets="runtime" PrivateAssets="all" />
+  <PackageReference Include="SwiftlyS2.CS2" Version="0.2.39-beta.94" ExcludeAssets="runtime" />
   <PackageReference Include="Tomlyn.Extensions.Configuration" Version="1.0.6" ExcludeAssets="runtime" PrivateAssets="all" />
-  <PackageReference Include="SwiftlyS2.Plugin.Audio.API" Version="2.0.0" />
+  <PackageReference Include="SwiftlyS2.Plugin.Audio.API" Version="2.0.0" ExcludeAssets="runtime" />
 </ItemGroup>
 
   <ItemGroup>
