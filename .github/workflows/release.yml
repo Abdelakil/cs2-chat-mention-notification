@@ -1,0 +1,74 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      
+    - name: Publish
+      run: dotnet publish --configuration Release --no-build
+      
+    - name: Get version from tag
+      id: version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+      
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: OstoraPlayerMention v${{ steps.version.outputs.VERSION }}
+        body: |
+          ## OstoraPlayerMention v${{ steps.version.outputs.VERSION }}
+          
+          ### 🎯 Features
+          - Player mention detection with @playername syntax
+          - Sound notifications for mentioned players
+          - Private notifications (hidden from public chat)
+          - Simple permission system (ostora.mention.use)
+          - Configurable cooldown and sound settings
+          - Multi-language support
+          
+          ### 📦 Installation
+          1. Download `OstoraPlayerMention.zip` from the assets below
+          2. Extract to your server's `addons/swiftlys2/plugins/` directory
+          3. Restart your server or reload plugins
+          4. Configure as needed
+          
+          ### 🔧 Requirements
+          - SwiftlyS2 framework
+          - AudioApi plugin
+          
+          ### 📄 License
+          MIT License - see LICENSE file for details
+        draft: false
+        prerelease: false
+        
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./build/OstoraPlayerMention.zip
+        asset_name: OstoraPlayerMention.zip
+        asset_content_type: application/zip
