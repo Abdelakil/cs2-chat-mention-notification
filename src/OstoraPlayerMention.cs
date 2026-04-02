@@ -16,7 +16,7 @@ using Tomlyn.Extensions.Configuration;
 
 namespace OstoraPlayerMention;
 
-[PluginMetadata(Id = "OstoraPlayerMention", Version = "1.0.0", Name = "Ostora Player Mention", Author = "Ostora", Description = "Player mention system with sound notifications. Inspired by SwiftlyS2-SankySounds by T3Marius.")]
+[PluginMetadata(Id = "OstoraPlayerMention", Version = "1.0.0", Name = "Ostora Player Mention", Author = "Zenjibad", Description = "Player mention system with sound notifications. Inspired by SwiftlyS2-SankySounds by T3Marius.", Website = "https://ostora.xyz")]
 public partial class OstoraPlayerMention : BasePlugin
 {
     private ServiceProvider? _provider;
