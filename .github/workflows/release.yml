@@ -8,6 +8,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
     - uses: actions/checkout@v4
@@ -31,12 +33,11 @@ jobs:
       run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
       
     - name: Create Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      id: create_release
+      uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ github.ref }}
-        release_name: OstoraPlayerMention v${{ steps.version.outputs.VERSION }}
+        tag_name: ${{ github.ref_name }}
+        name: OstoraPlayerMention v${{ steps.version.outputs.VERSION }}
         body: |
           ## OstoraPlayerMention v${{ steps.version.outputs.VERSION }}
           
@@ -60,15 +61,10 @@ jobs:
           
           ### 📄 License
           MIT License - see LICENSE file for details
+          
+          ### 🙏 Acknowledgments
+          - **[T3Marius/SwiftlyS2-SankySounds](https://github.com/T3Marius/SwiftlyS2-SankySounds)** - Inspiration and reference for audio integration
         draft: false
         prerelease: false
-        
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./build/OstoraPlayerMention.zip
-        asset_name: OstoraPlayerMention.zip
-        asset_content_type: application/zip
+        files: |
+          build/OstoraPlayerMention.zip
