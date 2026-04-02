@@ -88,3 +88,9 @@ Supported languages:
 ## 📄 License
 
 This plugin is released under the MIT License.
+
+## 🙏 Acknowledgments
+
+- **[T3Marius/SwiftlyS2-SankySounds](https://github.com/T3Marius/SwiftlyS2-SankySounds)** - Inspiration and reference for audio integration and plugin structure
+- **[SwiftlyS2](https://github.com/swiftly-solution/swiftlys2)** - The framework that makes this plugin possible
+- **[AudioApi](https://github.com/SwiftlyS2-Plugins/Audio)** - Audio system integration
